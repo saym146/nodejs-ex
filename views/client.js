@@ -1,4 +1,5 @@
-const connection = new WebSocket("ws://localhost:6551");
+const ip = process.env.OPENSHIFT_NODEJS_IP;
+const connection = new WebSocket("ws://" + ip + ":6551");
 const div = document.getElementById('divTextMsg');
 const msg = document.getElementById('txtMessage');
 
