@@ -3,8 +3,12 @@ var express = require('express'),
     fs      = require('fs'),
     app     = express(),
     eps     = require('ejs'),
-    morgan  = require('morgan');
-    
+    morgan  = require('morgan'),
+    WebSocket = require('ws'),
+    server = new WebSocket.Server({
+    port: 6551
+    });
+
 Object.assign=require('object-assign')
 
 app.engine('html', require('ejs').renderFile);
@@ -34,6 +38,20 @@ if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
 
   }
 }
+
+function broadcast(data) {
+    server.clients.forEach(ws => {
+        ws.send(data);
+    });
+}
+
+server.on('connection', ws=> {
+    ws.on('message', data=> {
+        broadcast(data);
+    });
+});
+
+
 var db = null,
     dbDetails = new Object();
 
