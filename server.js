@@ -4,7 +4,7 @@ var server = require("http").createServer(app);
 var io = require("socket.io").listen(server);
 users = [];
 connections = [];
-var portNo = process.env.PORT || 6551;
+var portNo = process.env.PORT || 8000;
 server.listen(portNo);
 console.log("Server is running... port: " + portNo);
 
