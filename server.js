@@ -4,9 +4,9 @@ var server = require("http").createServer(app);
 var io = require("socket.io").listen(server);
 users = [];
 connections = [];
-
-server.listen(process.env.PORT || 6551);
-console.log("Server is running...");
+var portNo = process.env.PORT || 6551;
+server.listen(portNo);
+console.log("Server is running... port: " + portNo);
 
 app.get("/", function (req, res) {
     res.sendFile(__dirname + "/index.html");
