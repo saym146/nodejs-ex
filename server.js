@@ -1,12 +1,14 @@
 var express = require("express");
 var app = express();
-var server = require("http").createServer(app);
+var server = require("http").Server(app);
 var io = require("socket.io").listen(server);
+server.listen(process.env.OPENSHIFT_NODEJS_PORT, process.env.OPENSHIFT_NODEJS_IP);
+
 users = [];
 connections = [];
-var portNo = process.env.OPENSHIFT_INTERNAL_PORT || process.env.OPENSHIFT_NODEJS_PORT || 8443;
-server.listen(portNo);
-console.log("Server is running... port: " + portNo);
+//var portNo = process.env.OPENSHIFT_INTERNAL_PORT || process.env.OPENSHIFT_NODEJS_PORT || 8443;
+//server.listen(portNo);
+//console.log("Server is running... port: " + portNo);
 
 app.get("/", function (req, res) {
     res.sendFile(__dirname + "/index.html");
